@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Релизы книг{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="header">
+            <h1>Релизы книг</h1>
+        </div>
+        <div style="row-gap: 30px;" class="row justify-content-center">
+            {% for book in books %}
+                <div class="book col-md-4">
+                    <h2 class="text-center">{{ book.name }}</h2>
+                    <p class="text-center"><span class="font-weight-bold">Автор:</span> {{ book.author }}</p>
+                    <p class="text-center"><span class="font-weight-bold">Дата публикации:</span> {{ book.pub_date }}
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+        <ul class="pagination mt-5 justify-content-center">
+            {% if prev_book %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="{% url 'publish_book' prev_book.pub_date %}">&laquo; {{ prev_book.pub_date }}</a>
+                </li>
+            {% endif %}
+            <li class="page-item active" aria-current="page">
+                <span class="page-link" style="cursor: default">{{ books.first.pub_date }}</span>
+            </li>
+            {% if next_book %}
+                <li class="page-item">
+                    <a class="page-link"
+                       href="{% url 'publish_book' next_book.pub_date %}">{{ next_book.pub_date }} &raquo;</a></li>
+            {% endif %}
+        </ul>
+        <div class="d-flex justify-content-center mt-5">
+            <a class="btn btn-primary btn-sm center" href="{% url 'books' %}">Перейти в каталог</a>
+        </div>
+    </div>
+{% endblock %}
