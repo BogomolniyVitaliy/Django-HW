@@ -1,0 +1,25 @@
+{% extends "school/base.html" %}
+{% load static %}
+
+{% block title %}Список учеников{% endblock %}
+{% block content %}
+    <div class="row justify-content-center">
+        <ul class="list-group">
+            {% for student in students %}
+                <li class="list-group-item">{{ student.name }} - {{ student.group }} <br>
+                    {% if student.teachers.all %}
+                        <p class="font-weight-bold">Назначенные учителя: </p>
+                        <ul class="list-group">
+                            {% for teacher in student.teachers.all %}
+                                <li class="list-group-item">{{ teacher.name }} - {{ teacher.subject }}</li>
+
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p class="font-weight-bold">Нет назначенных учителей</pc>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
